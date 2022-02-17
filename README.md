@@ -24,7 +24,7 @@ We're excited to move to the next step of the process with you. This exercise he
 - Your Device cell component should show the name, RSSI, and the readable date-time format from when it was last connected.
 - Once you know the `Device#id` you can perform more `ConnectivityClient` operations such: `connectToDeviceBy`, `updateDeviceName`, `disconnectFromDevice`. Use these operations in your secondary screen to display all Device information. Device state properties will change over time (while in connected state) so make sure your secondary screen stays up to date with those changes.
 - As an optional requirement if you have time, in the secondary screen show the device name in an input field that the user can use to rename it, use `ConnectivityClient#updateDeviceName`, the updated name should be reflected when the user goes back to the list screen.
-- Please not that there is no expectation for you to spend time on:
+### Please note that there is no expectation for you to spend time on:
 - Tablet layout, just focus on phone layout.
 - Localization/globalization.
 - Figuring out the underlying `ConnectivityClient` implementation, just work with the code available to you and the provided documentation.
