@@ -22,13 +22,9 @@ jobs:
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
   build:
-    when:
-      equal: [ "build", << pipeline.parameters.GHA_Action >> ]
     jobs:
       - say-hello
 
   feature-build:
-    when:
-      equal: [ "feature-build", << pipeline.parameters.GHA_Action >> ]
     jobs:
       - say-hello
