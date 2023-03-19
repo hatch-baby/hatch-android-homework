@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/fragment_device_list"
+    >
+
+    <fragment
+        android:id="@+id/fragment_device_list"
+        android:name="co.hatch.devicelist.DeviceListFragment">
+
+        <action
+            android:id="@+id/action_device_list_fragment_to_device_details_fragment"
+            app:destination="@id/fragment_device_details"
+            />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_device_details"
+        android:name="co.hatch.devicedetails.DeviceDetailsFragment">
+
+        <argument
+            android:name="deviceId"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true"
+            />
+
+        <argument
+            android:name="deviceName"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true"
+            />
+
+        <argument
+            android:name="isConnected"
+            android:defaultValue="false"
+            app:argType="boolean"
+            />
+
+        <argument
+            android:name="lastConnectedTime"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true"
+            />
+    </fragment>
+</navigation>

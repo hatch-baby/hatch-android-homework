@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">Hatch Homework Project</string>
+
+<!--    Device List-->
+    <string name="device_list_rssi_title">RSSI: </string>
+    <string name="device_list_last_connected_title">Last Connected: </string>
+    <string name="device_list_empty_state_title">No Devices Found!</string>
+    <string name="device_list_empty_state_subtitle">Refreshing...</string>
+
+<!--    Device Details-->
+    <string name="device_details_connected_status">Connected</string>
+    <string name="device_details_disconnected_status">Disconnected</string>
+    <string name="device_details_connect_button">Connect to device</string>
+    <string name="device_details_disconnect_button">Disconnect from device</string>
+    <string name="device_details_device_name_title">Device Name</string>
+    <string name="device_details_device_id_title">Device Id</string>
+    <string name="device_details_connection_status_title">Connection Status</string>
+    <string name="device_details_last_connected_time_title">Last Connected</string>
 </resources>

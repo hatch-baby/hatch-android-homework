@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="MATCH_CONSTRAINT">0dp</dimen>
+
+    <!--    Device List-->
+    <dimen name="device_list_item_padding">16dp</dimen>
+    <dimen name="device_list_empty_state_title_text_size">32sp</dimen>
+    <dimen name="device_list_empty_state_subtitle_margin_top">4dp</dimen>
+
+    <!--    Device Details-->
+    <dimen name="device_details_container_padding">16dp</dimen>
+    <dimen name="device_details_title_margin_start">8dp</dimen>
+    <dimen name="device_details_item_margin">16dp</dimen>
+</resources>
