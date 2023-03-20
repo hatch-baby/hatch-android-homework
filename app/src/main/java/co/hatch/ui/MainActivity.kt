@@ -1,4 +1,4 @@
-package co.hatch
+package co.hatch.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
