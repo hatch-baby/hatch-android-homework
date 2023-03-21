@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="?selectableItemBackground"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="16dp">
@@ -28,6 +29,6 @@
         android:layout_height="wrap_content"
         android:textAppearance="?textAppearanceCaption"
         app:layout_constraintTop_toBottomOf="@id/device_rssi"
-        tools:text="Last Connected: 4:12pm 03/20/23" />
+        tools:text="Last Connected: ..." />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

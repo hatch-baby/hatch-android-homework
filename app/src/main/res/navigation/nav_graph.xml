@@ -9,6 +9,21 @@
         android:id="@+id/deviceListFragment"
         android:name="co.hatch.ui.DeviceListFragment"
         android:label="@string/device_list_fragment_label"
-        tools:layout="@layout/fragment_device_list" />
+        tools:layout="@layout/fragment_device_list">
+        <action
+            android:id="@+id/toDeviceDetail"
+            app:destination="@id/deviceDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/deviceDetailFragment"
+        android:name="co.hatch.ui.DeviceDetailFragment"
+        android:label=""
+        tools:layout="@layout/fragment_device_detail">
+        <argument
+            android:name="id"
+            app:argType="string"
+            app:nullable="false" />
+    </fragment>
 
 </navigation>

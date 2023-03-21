@@ -3,4 +3,8 @@
     <string name="device_list_fragment_label">Devices</string>
     <string name="device_list_item_rssi">RSSI: %d</string>
     <string name="device_list_item_last_connected">Last Connected: %s</string>
+    <string name="device_detail_rssi">RSSI: %d</string>
+    <string name="device_detail_last_connected">Last Connected: %s</string>
+    <string name="device_detail_elapsed_seconds">Connected for %d seconds</string>
+    <string name="device_detail_error">Error connecting to device</string>
 </resources>
