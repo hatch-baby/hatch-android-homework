@@ -5,32 +5,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- TODO style the error text -->
-    <TextView
-        android:id="@+id/error_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?textAppearanceCaption"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <!-- TODO maybe move somewhere else that won't move the RecyclerView on toggling visibility -->
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/progress_indicator"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:indeterminate="true"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/error_text" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/progress_indicator"
         tools:listitem="@layout/view_holder_device_list_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

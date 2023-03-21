@@ -10,7 +10,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.*
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -19,12 +22,14 @@ import co.hatch.R
 import co.hatch.databinding.FragmentDeviceListBinding
 import co.hatch.databinding.ViewHolderDeviceListItemBinding
 import co.hatch.deviceClientLib.connectivity.ConnectivityClient
+import co.hatch.deviceClientLib.model.Device
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.time.Duration.Companion.seconds
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -45,7 +50,9 @@ class DeviceListAdapter : ListAdapter<DeviceListViewModel.DeviceUiModel, DeviceL
                 oldItem: DeviceListViewModel.DeviceUiModel,
                 newItem: DeviceListViewModel.DeviceUiModel
             ): Boolean {
-                return oldItem.id == newItem.id
+                // using listIndex instead of id so the scroll position is stable when submitting a
+                //  new list.
+                return oldItem.listIndex == newItem.listIndex
             }
 
             override fun areContentsTheSame(
@@ -133,6 +140,7 @@ class DeviceListFragment : Fragment() {
 
     private fun initViews() {
         binding.recyclerView.adapter = deviceListAdapter
+        binding.recyclerView.itemAnimator = null
         // TODO add dividers
     }
 
@@ -140,16 +148,11 @@ class DeviceListFragment : Fragment() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collect {
-                    showError(it.isErrorVisible)
                     showFetchingDevices(it.isFetchingDevices)
                     submitDeviceList(it.devices)
                 }
             }
         }
-    }
-
-    private fun showError(isErrorVisible: Boolean) {
-        binding.errorText.isVisible = isErrorVisible
     }
 
     private fun showFetchingDevices(isFetchingDevices: Boolean) {
@@ -168,40 +171,55 @@ class DeviceListViewModel @Inject constructor(
     private val dispatchers: HatchDispatchers,
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(DeviceListUiState())
-    val uiState: StateFlow<DeviceListUiState> = _uiState
+    private val _isFetchingDevices = MutableStateFlow(true)
 
-    init {
-        viewModelScope.launch(dispatchers.IO) {
-            val devices = connectivityClient.discoverDevices()
-                .map {
-                    DeviceUiModel(
-                        id = it.id,
-                        name = it.name,
-                        rssi = it.rssi,
-                        lastConnectedDate = it.latestConnectedTime?.let { date ->
-                            DateFormat.getDateTimeInstance().format(date)
-                        }
-                    )
-                }.sortedBy {
-                    it.rssi
-                }
-            val currentState = _uiState.value
-            _uiState.value = currentState.copy(
-                isFetchingDevices = false,
-                devices = devices,
-            )
+    private val devicesFlow = flow {
+        while (true) {
+            _isFetchingDevices.value = true
+            emit(fetchDevices())
+            _isFetchingDevices.value = false
+            delay(10.seconds)
         }
+    }.flowOn(dispatchers.IO)
+
+    val uiState: Flow<DeviceListUiState> = combine(
+        _isFetchingDevices,
+        devicesFlow
+    ) { isFetchingDevices, devices ->
+        DeviceListUiState(
+            isFetchingDevices = isFetchingDevices,
+            devices = devices,
+        )
+    }
+
+    private fun fetchDevices(): List<DeviceUiModel> {
+        return connectivityClient.discoverDevices()
+            .sortedBy { it.rssi }
+            .mapIndexed { index, model ->
+                toUiModel(model, index)
+            }
+    }
+
+    private fun toUiModel(device: Device, index: Int): DeviceUiModel {
+        return DeviceUiModel(
+            id = device.id,
+            listIndex = index,
+            name = device.name,
+            rssi = device.rssi,
+            lastConnectedDate = device.latestConnectedTime?.let { date ->
+                DateFormat.getDateTimeInstance().format(date)
+            }
+        )
     }
 
     data class DeviceListUiState(
         val isFetchingDevices: Boolean = true,
-        val isErrorVisible: Boolean = true, // maybe add a message here??
         val devices: List<DeviceUiModel> = emptyList(),
     )
 
     data class DeviceUiModel(
         val id: String,
+        val listIndex: Int,
         val name: String,
         val rssi: Int,
         val lastConnectedDate: String?,
