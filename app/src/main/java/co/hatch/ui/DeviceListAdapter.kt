@@ -22,8 +22,10 @@ class DeviceListAdapter(
                 oldItem: DeviceListViewModel.DeviceUiModel,
                 newItem: DeviceListViewModel.DeviceUiModel
             ): Boolean {
-                // using listIndex instead of id so the scroll position is stable when submitting a
-                //  new list.
+                // Use id to keep top item in view on list changes
+                // return oldItem.id == newItem.id
+
+                // Use listIndex to keep RSSI sort order stable on list changes
                 return oldItem.listIndex == newItem.listIndex
             }
 

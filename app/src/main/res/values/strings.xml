@@ -7,4 +7,8 @@
     <string name="device_detail_last_connected">Last Connected: %s</string>
     <string name="device_detail_elapsed_seconds">Connected for %d seconds</string>
     <string name="device_detail_error">Error connecting to device</string>
+    <string name="device_detail_name_hint">Device Name</string>
+    <string name="device_detail_name_update_success">Device name updated</string>
+    <string name="device_detail_name_update_error">Error updating device name</string>
+    <string name="device_detail_name_update_error_null">Enter text to update device name</string>
 </resources>
