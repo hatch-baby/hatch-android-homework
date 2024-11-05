@@ -4,16 +4,20 @@ plugins {
 }
 
 android {
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "co.hatch"
         minSdk 29
-        targetSdk 32
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildFeatures {
+        buildConfig = true
     }
 
     buildTypes {
@@ -29,6 +33,7 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    namespace 'co.hatch'
 }
 
 dependencies {
