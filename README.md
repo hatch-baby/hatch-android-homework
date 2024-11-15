@@ -36,7 +36,7 @@ If you have any questions or need clarification, feel free to reach out—it’s
 
 - Once you know the `Device#id` you can perform more `ConnectivityClient` operations such: `connectToDeviceBy`, `updateDeviceName`, `disconnectFromDevice`. 
 - Allow the user to rename the device on the detail screen, and make sure the name updates on the list screen when the user returns to it.
-- The operations as you see fit within your time constraints.
+- Use the operations as you see fit within your time constraints.
 
 ## Additional Information:
 
